@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+source /home/benj/repos/say-carbs/source/init.sh
+source /home/benj/repos/say-carbs/source/constants.sh
+
+carb_dir_path=./$CARBDIR_NAME
+
+if [ "$1" = "init" ]; then
+    init $carb_dir_path
+    exit 0
+fi
+
+
+if [ ! -d $carb_dir_path ]
+   then echo "Fatal. Not in a carb dir"
+   exit 1
+fi
+
+today=$(date --rfc-3339=date)
+
+today_object_path=$carb_dir_path/$today
+
+[ -f $today_object_path ] && echo overriding existing data
+
+echo $1 > $today_object_path
